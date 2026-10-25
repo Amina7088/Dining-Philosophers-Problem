@@ -1,0 +1,66 @@
+Philosopher 1 is THINKING
+Philosopher 2 is THINKING
+Philosopher 3 is THINKING
+Philosopher 4 is THINKING
+Philosopher 5 is THINKING
+Philosopher 1 is HUNGRY
+Philosopher 1 takes fork 5 and 1 (EATING)
+Philosopher 4 is HUNGRY
+Philosopher 4 takes fork 3 and 4 (EATING)
+Philosopher 3 is HUNGRY
+Philosopher 2 is HUNGRY
+Philosopher 5 is HUNGRY
+Philosopher 1 putting fork 5 and 1 down (THINKING)
+Philosopher 2 takes fork 1 and 2 (EATING)
+Philosopher 4 putting fork 3 and 4 down (THINKING)
+Philosopher 5 takes fork 4 and 5 (EATING)
+Philosopher 1 is HUNGRY
+Philosopher 4 is HUNGRY
+Philosopher 5 putting fork 4 and 5 down (THINKING)
+Philosopher 4 takes fork 3 and 4 (EATING)
+Philosopher 2 putting fork 1 and 2 down (THINKING)
+Philosopher 1 takes fork 5 and 1 (EATING)
+Philosopher 5 is HUNGRY
+Philosopher 2 is HUNGRY
+Philosopher 4 putting fork 3 and 4 down (THINKING)
+Philosopher 3 takes fork 2 and 3 (EATING)
+Philosopher 1 putting fork 5 and 1 down (THINKING)
+Philosopher 5 takes fork 4 and 5 (EATING)
+Philosopher 4 is HUNGRY
+Philosopher 1 is HUNGRY
+Philosopher 3 putting fork 2 and 3 down (THINKING)
+Philosopher 2 takes fork 1 and 2 (EATING)
+Philosopher 5 putting fork 4 and 5 down (THINKING)
+Philosopher 4 takes fork 3 and 4 (EATING)
+Philosopher 3 is HUNGRY
+Philosopher 5 is HUNGRY
+Philosopher 2 putting fork 1 and 2 down (THINKING)
+Philosopher 1 takes fork 5 and 1 (EATING)
+Philosopher 4 putting fork 3 and 4 down (THINKING)
+Philosopher 3 takes fork 2 and 3 (EATING)
+Philosopher 2 is HUNGRY
+Philosopher 4 is HUNGRY
+Philosopher 1 putting fork 5 and 1 down (THINKING)
+Philosopher 5 takes fork 4 and 5 (EATING)
+Philosopher 3 putting fork 2 and 3 down (THINKING)
+Philosopher 2 takes fork 1 and 2 (EATING)
+Philosopher 1 is HUNGRY
+Philosopher 3 is HUNGRY
+Philosopher 5 putting fork 4 and 5 down (THINKING)
+Philosopher 4 takes fork 3 and 4 (EATING)
+Philosopher 2 putting fork 1 and 2 down (THINKING)
+Philosopher 1 takes fork 5 and 1 (EATING)
+Philosopher 5 is HUNGRY
+Philosopher 2 is HUNGRY
+Philosopher 4 putting fork 3 and 4 down (THINKING)
+Philosopher 3 takes fork 2 and 3 (EATING)
+Philosopher 1 putting fork 5 and 1 down (THINKING)
+Philosopher 5 takes fork 4 and 5 (EATING)
+Philosopher 4 is HUNGRY
+Philosopher 1 is HUNGRY
+Philosopher 3 putting fork 2 and 3 down (THINKING)
+Philosopher 2 takes fork 1 and 2 (EATING)
+Philosopher 5 putting fork 4 and 5 down (THINKING)
+Philosopher 4 takes fork 3 and 4 (EATING)
+Philosopher 3 is HUNGRY
+Philosopher 5 is HUNGRY
