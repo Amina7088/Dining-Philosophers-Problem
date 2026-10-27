@@ -13,7 +13,7 @@
   thinkInput.removeEventListener("change", reset);
   eatInput.removeEventListener("change", reset);
 
-  pauseButton.textContent = "■ Stop";   // backend-д pause байхгүй
+  pauseButton.textContent = "■ Stop";   
 
   async function post(path, body) {
     const res = await fetch(path, {
