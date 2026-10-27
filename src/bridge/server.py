@@ -64,7 +64,7 @@ def validate(body):
     if not (100 <= think_ms <= 10000 and 100 <= eat_ms <= 10000):
         return None, "Хугацаа 0.1–10 секундын хооронд байх ёстой."
     if (CONFIG.replay or not CONFIG.pass_args) and n != 5:
-        return None, "Одоогийн backend зөвхөн N=5-ыг дэмжинэ (аргумент хүлээн авдаггүй)."
+        return None, "N-ийг өөрчлөхийн тулд серверийг --pass-args горимоор ажиллуулна уу (одоогийн горимд зөвхөн N=5)."
     return (n, think_ms, eat_ms), None
 
 
@@ -215,7 +215,7 @@ if __name__ == "__main__":
     ap.add_argument("--delay", type=float, default=0.3, help="replay үед мөр хоорондын хугацаа (сек)")
     ap.add_argument("--binary", default="./philosophers", help="бодит C програм")
     ap.add_argument("--pass-args", action="store_true",
-                    help="C програмд N, thinkMs, eatMs-ийг аргументаар дамжуулах (Аминхишиг дэмжсэний дараа)")
+                    help="C програмд N, thinkMs, eatMs-ийг C програмд аргументаар дамжуулна")
     ap.add_argument("--port", type=int, default=8000)
     CONFIG = ap.parse_args()
 
