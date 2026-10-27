@@ -84,7 +84,34 @@ void* philosopher(void* num) {
     }
 }
 
-int main() {
+// Аргументыг бүхэл тоо болгож шалгана. Буруу бол алдаа хэвлээд 0 буцаана
+int parse_arg(const char* text, const char* name, long min, long max, int* out) {
+    char* end;
+    long v = strtol(text, &end, 10);
+
+    if (end == text || *end != '\0') {
+        fprintf(stderr, "Алдаа: %s бүхэл тоо байх ёстой (өгсөн утга: \"%s\").\n", name, text);
+        return 0;
+    }
+    if (v < min || v > max) {
+        fprintf(stderr, "Алдаа: %s нь %ld-%ld хооронд байх ёстой (өгсөн утга: %ld).\n", name, min, max, v);
+        return 0;
+    }
+    *out = (int)v;
+    return 1;
+}
+
+int main(int argc, char* argv[]) {
+    // Хэрэглээ: ./philosophers [n] [thinkMs] [eatMs]
+    if (argc > 4) {
+        fprintf(stderr, "Хэрэглээ: %s [n] [thinkMs] [eatMs]\n", argv[0]);
+        return 1;
+    }
+    if (argc > 1 && !parse_arg(argv[1], "n (философичдын тоо)", 2, MAX_N, &N)) return 1;
+    if (argc > 2 && !parse_arg(argv[2], "thinkMs (бодох хугацаа)", 100, 10000, &think_ms)) return 1;
+    if (argc > 3 && !parse_arg(argv[3], "eatMs (хооллох хугацаа)", 100, 10000, &eat_ms)) return 1;
+
+
     pthread_t thread_id[MAX_N];
 
     // Mutex болон Condition Variables идэвхжүүлэх
