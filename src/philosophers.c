@@ -77,9 +77,9 @@ void* philosopher(void* num) {
     int* i = num;
 
     while (1) {
-        sleep(think_ms);             // Сэтгэн бодох хугацаа (THINKING)
+        sleep_ms(think_ms);             // Сэтгэн бодох хугацаа (THINKING)
         pickup_forks(*i);
-        sleep(eat_ms);             // Хоол идэх хугацаа (EATING)
+        sleep_ms(eat_ms);             // Хоол идэх хугацаа (EATING)
         return_forks(*i);
     }
 }
