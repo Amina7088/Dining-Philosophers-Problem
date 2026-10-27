@@ -3,7 +3,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#define N 5
+#define MAX_N 10        
 #define THINKING 0                  
 #define HUNGRY 1
 #define EATING 2
@@ -11,11 +11,12 @@
 #define LEFT (phnum + N - 1) % N
 #define RIGHT (phnum + 1) % N
 
-int state[N];
-int phil[N] = { 0, 1, 2, 3, 4 };
+int N = 5;
+int state[MAX_N];
+int phil[MAX_N];
 
 pthread_mutex_t mutex;
-pthread_cond_t cond[N];
+pthread_cond_t cond[MAX_N];
 
 // Хоёр талын философич идэхгүй байгаа бөгөөд одоогийн философич өлсөж байвал идэхийг зөвшөөрөх
 void test(int phnum) {
@@ -75,12 +76,13 @@ void* philosopher(void* num) {
 }
 
 int main() {
-    pthread_t thread_id[N];
+    pthread_t thread_id[MAX_N];
 
     // Mutex болон Condition Variables идэвхжүүлэх
     pthread_mutex_init(&mutex, NULL);
     for (int i = 0; i < N; i++) {
         pthread_cond_init(&cond[i], NULL);
+        phil[i] = i;
         state[i] = THINKING;
     }
 
