@@ -15,6 +15,9 @@ int N = 5;
 int state[MAX_N];
 int phil[MAX_N];
 
+int think_ms = 1000;    // бодох хугацаа (мс)
+int eat_ms = 2000; 
+
 pthread_mutex_t mutex;
 pthread_cond_t cond[MAX_N];
 
@@ -63,14 +66,20 @@ void return_forks(int phnum) {
     pthread_mutex_unlock(&mutex);
 }
 
+// Өгсөн хугацаанд (миллисекундээр) хүлээнэ. (Философичийн бодох, хооллох хугацаа)
+void sleep_ms(int ms) {
+    sleep(ms / 1000);
+    usleep((ms % 1000) * 1000);
+}
+
 // Философич бүрийн ажиллах Thread функц
 void* philosopher(void* num) {
     int* i = num;
 
     while (1) {
-        sleep(1);             // Сэтгэн бодох хугацаа (THINKING)
+        sleep(think_ms);             // Сэтгэн бодох хугацаа (THINKING)
         pickup_forks(*i);
-        sleep(2);             // Хоол идэх хугацаа (EATING)
+        sleep(eat_ms);             // Хоол идэх хугацаа (EATING)
         return_forks(*i);
     }
 }
