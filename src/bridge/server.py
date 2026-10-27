@@ -88,6 +88,7 @@ def lines_from(my_id, n, think_ms, eat_ms):
                 yield line
         finally:
             proc.terminate()
+            proc.wait()
 
 
 def source_loop(my_id, n, think_ms, eat_ms):
@@ -112,6 +113,7 @@ def stop_run(announce=True):
         current_proc = None
     if proc is not None:
         proc.terminate()
+        proc.wait()
     if announce:
         broadcast({"type": "stopped"})
 
