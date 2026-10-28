@@ -1,0 +1,23 @@
+philosophers.c tests (limits: N 2-10, time 100-10000 ms)
+(parse_arg error messages are hidden in this output)
+
+[PASS] parse_arg(): valid and invalid values
+[PASS] main(): invalid arguments return 1
+[PASS] test()/return_forks(): eating rules
+    N | meals | viol | max_eat | N/2 | meals min..max | max_wait_ms
+     2 |    98 |    0 |       1 |   1 |     49..49     | 28
+     3 |    99 |    0 |       1 |   1 |     33..33     | 64
+     5 |   198 |    0 |       2 |   2 |     34..42     | 149
+     8 |   392 |    0 |       4 |   4 |     49..49     | 32
+    10 |   475 |    0 |       5 |   5 |     47..48     | 98
+[PASS] scaling table (think=20ms, eat=20ms, 3 s per N)
+    N=10 think=1ms eat=1ms: meals=986 viol=0 max_eat=5 max_wait=39ms
+    N=7 think=1ms eat=10ms: meals=571 viol=0 max_eat=3 max_wait=71ms
+    N=2 think=1ms eat=1ms: meals=351 viol=0 max_eat=1 max_wait=14ms
+    N=3 think=1ms eat=1ms: meals=319 viol=0 max_eat=1 max_wait=17ms
+[PASS] stress: very short think/eat times
+    runs with problems: 0 / 15
+[PASS] repeat: 15 short runs (N=7, think=1ms, eat=5ms)
+
+92 checks, 0 failed
+ALL TESTS PASSED
