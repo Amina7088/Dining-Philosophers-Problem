@@ -492,8 +492,9 @@ function start() {
     settings = getSettings();
   } catch (error) {
     statusElement.textContent = error.message;
-
     setBadge("ERROR");
+    
+    alert(error.message); 
 
     return;
   }

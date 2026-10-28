@@ -63,8 +63,6 @@ def validate(body):
         return None, "Философичдын тоо 2–10 байх ёстой."
     if not (100 <= think_ms <= 10000 and 100 <= eat_ms <= 10000):
         return None, "Хугацаа 0.1–10 секундын хооронд байх ёстой."
-    if (CONFIG.replay or not CONFIG.pass_args) and n != 5:
-        return None, "N-ийг өөрчлөхийн тулд серверийг --pass-args горимоор ажиллуулна уу (одоогийн горимд зөвхөн N=5)."
     return (n, think_ms, eat_ms), None
 
 
@@ -77,9 +75,7 @@ def lines_from(my_id, n, think_ms, eat_ms):
             time.sleep(CONFIG.delay)
             yield line
     else:
-        cmd = ["stdbuf", "-oL", CONFIG.binary]
-        if CONFIG.pass_args:
-            cmd += [str(n), str(think_ms), str(eat_ms)]
+        cmd = ["stdbuf", "-oL", CONFIG.binary, str(n), str(think_ms), str(eat_ms)]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True)
         with lock:
             current_proc = proc
