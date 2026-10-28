@@ -1,85 +1,224 @@
+
 <!DOCTYPE html>
 <html lang="mn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Dining Philosophers Simulator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
-  <main class="container">
-    <header>
-      <div class="eyebrow">OPERATING SYSTEMS · SIMULATOR</div>
-      <h1>Dining Philosophers</h1>
-      <p>Философичдын хооллох асуудлын интерактив симулятор</p>
-    </header>
+  <main class="app">
 
-    <section class="controls">
-      <label>
-        Философичдын тоо (N)
-        <input id="count" type="number" min="2" max="10" value="5">
-      </label>
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">D</div>
 
-      <label>
-        Бодох хугацаа (секунд)
-        <input id="thinkTime" type="number" min="1" max="10" value="2">
-      </label>
-
-      <label>
-        Хооллох хугацаа (секунд)
-        <input id="eatTime" type="number" min="1" max="10" value="3">
-      </label>
-
-      <div class="buttons">
-        <button id="start" type="button">▶ Start</button>
-        <button id="pause" type="button" disabled>Ⅱ Pause</button>
-        <button id="reset" type="button">↻ Reset</button>
-      </div>
-    </section>
-
-    <section class="simulation">
-      <div class="section-heading">
         <div>
-          <h2>Ширээний дүрслэл</h2>
-          <p class="subheading">Философич болон сэрээний төлөвийг бодит цагт ажиглаарай.</p>
+          <div class="eyebrow">OPERATING SYSTEMS · SIMULATOR</div>
+          <h1>Dining Philosophers</h1>
+          <p>Философичдын хооллох асуудлын интерактив симулятор</p>
         </div>
+      </div>
+
+      <div class="header-status">
+        <span class="status-indicator"></span>
         <span id="runBadge" class="run-badge">READY</span>
       </div>
+    </header>
 
-      <div id="philosophers" aria-label="Философичдын дугуй ширээ"></div>
+    <!-- CONTROLS -->
+    <section class="controls-panel">
+      <div class="control-group">
+        <label for="count">Философичдын тоо</label>
+        <input id="count" type="number" min="2" max="10" value="5">
+      </div>
+
+      <div class="control-group">
+        <label for="thinkTime">Бодох хугацаа (сек)</label>
+        <input id="thinkTime" type="number" min="1" max="10" value="2">
+      </div>
+
+      <div class="control-group">
+        <label for="eatTime">Хооллох хугацаа (сек)</label>
+        <input id="eatTime" type="number" min="1" max="10" value="3">
+      </div>
+
+      <div class="control-buttons">
+        <button id="start" class="btn btn-primary" type="button">
+          <span>▶</span> Start
+        </button>
+
+        <button id="pause" class="btn btn-warning" type="button" disabled>
+          <span>Ⅱ</span> Pause
+        </button>
+
+        <button id="reset" class="btn btn-secondary" type="button">
+          <span>↻</span> Reset
+        </button>
+      </div>
     </section>
 
-    <section class="summary">
-      <div class="summary-card">
-        <span class="summary-label">Thinking</span>
-        <strong id="thinkingCount">5</strong>
-      </div>
-      <div class="summary-card">
-        <span class="summary-label">Hungry</span>
-        <strong id="hungryCount">0</strong>
-      </div>
-      <div class="summary-card">
-        <span class="summary-label">Eating</span>
-        <strong id="eatingCount">0</strong>
-      </div>
+    <!-- MAIN DASHBOARD -->
+    <section class="dashboard">
+
+      <!-- LEFT: SIMULATION TABLE -->
+      <section class="simulation-panel">
+
+        <div class="panel-heading">
+          <div>
+            <div class="panel-eyebrow">LIVE SIMULATION</div>
+            <h2>Ширээний дүрслэл</h2>
+          </div>
+
+          <div class="table-counter">
+            <span id="philosopherTotal">05</span>
+            <span>PHILOSOPHERS</span>
+          </div>
+        </div>
+
+        <div class="table-stage">
+          <div id="philosophers" aria-label="Философичдын дугуй ширээ">
+
+            <div class="table-center">
+              <div class="rice-icon">🍚</div>
+              <span>RICE</span>
+              <small>Shared table</small>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="table-footer">
+          <div class="table-legend">
+            <span>
+              <i class="legend-dot thinking-dot"></i>
+              Thinking
+            </span>
+
+            <span>
+              <i class="legend-dot hungry-dot"></i>
+              Hungry
+            </span>
+
+            <span>
+              <i class="legend-dot eating-dot"></i>
+              Eating
+            </span>
+          </div>
+
+          <div class="fork-legend">
+            <span class="fork-symbol">♆</span>
+            Сэрээ
+          </div>
+        </div>
+
+      </section>
+
+      <!-- RIGHT: INFORMATION PANEL -->
+      <aside class="information-panel">
+
+        <!-- STATISTICS -->
+        <section class="stats-panel">
+
+          <div class="panel-heading compact-heading">
+            <div>
+              <div class="panel-eyebrow">OVERVIEW</div>
+              <h2>Live Statistics</h2>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+
+            <div class="stat-card thinking-card">
+              <div class="stat-top">
+                <span class="legend-dot thinking-dot"></span>
+                <span>Thinking</span>
+              </div>
+
+              <strong id="thinkingCount">5</strong>
+              <small>Бодож байна</small>
+            </div>
+
+            <div class="stat-card hungry-card">
+              <div class="stat-top">
+                <span class="legend-dot hungry-dot"></span>
+                <span>Hungry</span>
+              </div>
+
+              <strong id="hungryCount">0</strong>
+              <small>Хүлээж байна</small>
+            </div>
+
+            <div class="stat-card eating-card">
+              <div class="stat-top">
+                <span class="legend-dot eating-dot"></span>
+                <span>Eating</span>
+              </div>
+
+              <strong id="eatingCount">0</strong>
+              <small>Хооллож байна</small>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- PHILOSOPHER DETAILS -->
+        <section class="philosopher-panel">
+
+          <div class="panel-heading compact-heading">
+            <div>
+              <div class="panel-eyebrow">INDIVIDUAL STATUS</div>
+              <h2>Philosopher Details</h2>
+            </div>
+          </div>
+
+          <div id="philosopherDetails" class="philosopher-details"></div>
+
+        </section>
+
+        <!-- EVENT LOG -->
+        <section class="event-panel">
+
+          <div class="panel-heading compact-heading">
+            <div>
+              <div class="panel-eyebrow">ACTIVITY</div>
+              <h2>Simulation Status</h2>
+            </div>
+          </div>
+
+          <div class="event-content">
+            <span class="event-icon">●</span>
+            <p id="status" role="status" aria-live="polite">
+              Симуляци эхлүүлэхэд бэлэн.
+            </p>
+          </div>
+
+        </section>
+
+      </aside>
+
     </section>
 
-    <section class="legend" aria-label="Төлөвийн тайлбар">
-      <span><i class="dot thinking-dot"></i> Thinking — бодож байна</span>
-      <span><i class="dot hungry-dot"></i> Hungry — өлссөн</span>
-      <span><i class="dot eating-dot"></i> Eating — хооллож байна</span>
-      <span><i class="dot fork-dot"></i> Сэрээ ашиглагдаж байна</span>
-    </section>
-
-    <p id="status" role="status" aria-live="polite">
-      Симуляци эхлүүлэхэд бэлэн.
-    </p>
-
-    <footer>
+    <!-- FOOTER -->
+    <footer class="app-footer">
       <span>Dining Philosophers Problem</span>
-      <span>Frontend demo · Backend холболт хийгдээгүй</span>
+      <span>Frontend Simulator · Backend холболт хийгдээгүй</span>
     </footer>
+
   </main>
 </body>
 </html>
