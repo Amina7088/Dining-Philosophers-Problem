@@ -4,6 +4,7 @@
   "use strict";
 
   let es = null;
+  let hasError = false;   // шалгалтын алдаа дэлгэц дээр байгаа эсэх
 
   // Локал симуляцийн listener-үүдийг авч, backend-ийнхээр сольно.
   startButton.removeEventListener("click", start);
@@ -25,8 +26,10 @@
   }
 
   function showError(message) {
+    hasError = true;
     setBadge("ERROR");
     statusElement.textContent = message;
+    alert(message);
   }
 
   async function onStart() {
@@ -37,6 +40,7 @@
       showError(err.message);
       return;
     }
+    hasError = false;
     try {
       const r = await post("/start", {
         n: s.count,
@@ -59,9 +63,15 @@
   }
 
   async function onReset() {
+    hasError = false;
     await onStop();
     reset();                            // script.js-ийн reset: философичдыг эхний төлөвт буцаана
     pauseButton.textContent = "■ Stop";
+    try {
+      getSettings();
+    } catch (err) {
+      showError(err.message);           // буруу утга оруулбал алдааг харуулна
+    }
   }
 
   function handle(ev) {
@@ -78,6 +88,7 @@
     } else if (ev.type === "stopped") {
       startButton.disabled = false;
       pauseButton.disabled = true;
+      if (hasError) return;             // ERROR мессежийг дарж бичихгүй
       setBadge("READY");
       statusElement.textContent = "Backend зогссон.";
     }
