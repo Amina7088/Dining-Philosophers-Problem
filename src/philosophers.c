@@ -3,18 +3,23 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#define N 5                  
+#define MAX_N 10        
+#define THINKING 0                  
 #define HUNGRY 1
 #define EATING 2
 
 #define LEFT (phnum + N - 1) % N
 #define RIGHT (phnum + 1) % N
 
-int state[N];
-int phil[N] = { 0, 1, 2, 3, 4 };
+int N = 5;
+int state[MAX_N];
+int phil[MAX_N];
+
+int think_ms = 1000;    // бодох хугацаа (мс)
+int eat_ms = 2000; 
 
 pthread_mutex_t mutex;
-pthread_cond_t cond[N];
+pthread_cond_t cond[MAX_N];
 
 // Хоёр талын философич идэхгүй байгаа бөгөөд одоогийн философич өлсөж байвал идэхийг зөвшөөрөх
 void test(int phnum) {
@@ -61,25 +66,59 @@ void return_forks(int phnum) {
     pthread_mutex_unlock(&mutex);
 }
 
+// Өгсөн хугацаанд (миллисекундээр) хүлээнэ. (Философичийн бодох, хооллох хугацаа)
+void sleep_ms(int ms) {
+    sleep(ms / 1000);
+    usleep((ms % 1000) * 1000);
+}
+
 // Философич бүрийн ажиллах Thread функц
 void* philosopher(void* num) {
     int* i = num;
 
     while (1) {
-        sleep(1);             // Сэтгэн бодох хугацаа (THINKING)
+        sleep_ms(think_ms);             // Сэтгэн бодох хугацаа (THINKING)
         pickup_forks(*i);
-        sleep(2);             // Хоол идэх хугацаа (EATING)
+        sleep_ms(eat_ms);             // Хоол идэх хугацаа (EATING)
         return_forks(*i);
     }
 }
 
-int main() {
-    pthread_t thread_id[N];
+// Аргументыг бүхэл тоо болгож шалгана. Буруу бол алдаа хэвлээд 0 буцаана
+int parse_arg(const char* text, const char* name, long min, long max, int* out) {
+    char* end;
+    long v = strtol(text, &end, 10);
+
+    if (end == text || *end != '\0') {
+        fprintf(stderr, "Алдаа: %s бүхэл тоо байх ёстой (өгсөн утга: \"%s\").\n", name, text);
+        return 0;
+    }
+    if (v < min || v > max) {
+        fprintf(stderr, "Алдаа: %s нь %ld-%ld хооронд байх ёстой (өгсөн утга: %ld).\n", name, min, max, v);
+        return 0;
+    }
+    *out = (int)v;
+    return 1;
+}
+
+int main(int argc, char* argv[]) {
+    // Хэрэглээ: ./philosophers [n] [thinkMs] [eatMs]
+    if (argc > 4) {
+        fprintf(stderr, "Хэрэглээ: %s [n] [thinkMs] [eatMs]\n", argv[0]);
+        return 1;
+    }
+    if (argc > 1 && !parse_arg(argv[1], "n (философичдын тоо)", 2, MAX_N, &N)) return 1;
+    if (argc > 2 && !parse_arg(argv[2], "thinkMs (бодох хугацаа)", 100, 10000, &think_ms)) return 1;
+    if (argc > 3 && !parse_arg(argv[3], "eatMs (хооллох хугацаа)", 100, 10000, &eat_ms)) return 1;
+
+
+    pthread_t thread_id[MAX_N];
 
     // Mutex болон Condition Variables идэвхжүүлэх
     pthread_mutex_init(&mutex, NULL);
     for (int i = 0; i < N; i++) {
         pthread_cond_init(&cond[i], NULL);
+        phil[i] = i;
         state[i] = THINKING;
     }
 
